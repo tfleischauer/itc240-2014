@@ -71,11 +71,11 @@
            <legend>Mad Lib</legend>
            <table>       
               <tr>
-                  <td class="form-labels"><label for="verb">A verb describing an action towards a person:</label></td>
-                  <td><input name="verb" placeholder="verb" ></td>
+                  <td class="form-labels"><label for="verb">An action towards a person (ex. kiss, hit, etc):</label></td>
+                  <td><input name="verb" placeholder="present tense verb" ></td>
               </tr>
               <tr>
-                  <td class="form-labels"><label for="movie">Movie (from a series ex. Rocky, Star Wars, etc.):</label></td>
+                  <td class="form-labels"><label for="movie">Movie from a series (ex. Rocky, Star Wars, etc):</label></td>
                   <td><input name="movie" placeholder="noun" ></td>
               </tr>
               <tr>
@@ -95,7 +95,7 @@
                   <td><input name="anothernumber" placeholder="another number" ></td>
               </tr>
                <tr>
-                  <td class="form-labels"><label for="relative">Enter a type of relative ex. mom, uncle, etc:</label></td>
+                  <td class="form-labels"><label for="relative">Enter a type of relative (ex. mom, uncle, etc):</label></td>
                   <td><label><input name="relative" placeholder="noun" ></label></td>
                </tr>
                <tr>
@@ -104,8 +104,6 @@
                </tr>		
                </table>
                
-               
-               
             </fieldset>      
 	</form>
     
@@ -113,13 +111,13 @@
 		
 		if($method == "POST") {
 	
-		$verb = $_REQUEST["verb"];
-		$relative = $_REQUEST["relative"];
-		$movie = $_REQUEST["movie"];
-		$bodypart = $_REQUEST["bodypart"];
-		$emotion = $_REQUEST["emotion"];
-		$number = $_REQUEST["number"];
-		$anothernumber = $_REQUEST["anothernumber"];
+		$verb = htmlentities($_REQUEST["verb"]); // not using htmlentities is dangerous because javaScript could be injected (or CSS).
+		$relative = htmlentities($_REQUEST["relative"]);
+		$movie = htmlentities($_REQUEST["movie"]);
+		$bodypart = htmlentities($_REQUEST["bodypart"]);
+		$emotion = htmlentities($_REQUEST["emotion"]);
+		$number = htmlentities($_REQUEST["number"]);
+		$anothernumber = htmlentities($_REQUEST["anothernumber"]);
 	?>
 	
     <p id="p1">Your Mad Lib ...</p>
