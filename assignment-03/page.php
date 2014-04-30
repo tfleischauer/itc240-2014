@@ -33,16 +33,19 @@
 	  	   include("lps.php");
 	  } else if ($show == "artist") {
 		  include("artist.php");
-	  } else if ($show == "alph") {
-		  ksort($albums);
-      	  foreach ($albums as $title => $value) {
-      	  }
-		  include("alph.php");
 	  } else if ($show == "year") {
 		  include("year.php");
 	  }
-  }  
-   
+  }
+  
+  ksort($albums);
+  foreach ($albums as $title => $value) {
+	  if ($show == "alph") {
+		  // include("alph.php"); 
+		  echo "$title" . "$value";
+	  }
+  }
+      	     
 ?>
 
 </ul> 
