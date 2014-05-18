@@ -70,7 +70,7 @@
 	</table> 
     
     <?php
-    	$order_year ='SELECT * FROM albums ORDER BY release_year ASC;' 
+    	$order_year ='SELECT * FROM albums ORDER BY release_year ASC;'   
 	?> 
       
   </body>
