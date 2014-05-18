@@ -1,0 +1,67 @@
+<style>
+
+table,td,tr {
+	border:1px solid red;	
+}
+		
+body {
+	font-family:"Century Gothic", Helvetica, "Trebuchet MS", Arial, sans-serif;
+	font-size:100%;
+}
+
+.page-wrapper {
+	width:70%;
+	margin:auto;
+}
+
+form {
+	width:48%;
+	margin:2% auto 2% auto;	
+}
+
+.result-table,
+.result-fieldset,
+.sorting-table,
+.sorting-fieldset {
+	width:45%;
+	margin:2% auto 2% auto;	
+}
+
+button {
+	float:right;	
+}
+
+.form-labels  {
+	text-align:right;
+	vertical-align:top;	
+}
+
+legend {
+	font-size: 125%; /* 20px /16px */
+	padding:0px 8px 0px 8px;
+	font-style:oblique;
+}
+
+fieldset {
+	-moz-box-shadow: 4px 4px 4px #777777;
+	-webkit-box-shadow: 4px 4px 4px #777777;
+	box-shadow: 4px 4px 4px #777777;	
+}
+
+th, td {
+	padding: 8px;
+}
+
+p,
+#p1 {
+	width:47%;
+	margin:auto;	
+}
+
+#p1 {
+	font-size: 125%; /* 20px /16px */
+	padding-bottom:.375em; /* 6px / 16px */;
+	font-style:oblique;
+}
+
+</style>

@@ -10,7 +10,7 @@
 <html>
     <head>
       <meta charset="UTF-8">
-      <title>A4 ITC240</title>
+      <title>ITC 240 A4</title>
     </head>
   <body>
   <?php
@@ -33,16 +33,17 @@
 	// 3. execute the query request
 	
 	// 0. put query in a variable
-	$album_query = 'SELECT * FROM albums;';
+	$album_query = 'SELECT * FROM albums;'; 
+	//'SELECT * FROM albums ORDER BY release_year ASC;';
 	
-	// 1. this step sends the query to the database to create a state of preparation (a safety measure)
+	// 1. this step sends the query to the database to create a state of preparation (a safety measure) for the query
 	$prepared_album_table_query = $mysql->prepare($album_query);
 	
 	// 2. bind
 	// no user input to bind
 	// $prepared_album_table_query->bind_param("ssssi");
 	
-	// 3. now executed the prepared results (send the query to be executed)
+	// 3. now execute the prepared results (send the query to be executed)
 	$prepared_album_table_query->execute();
 	 
 	// get the rows that resulted from the query of the entire table
@@ -66,6 +67,11 @@
 	<?php
 	}
 	?>
-	</table>     
+	</table> 
+    
+    <?php
+    	$order_year ='SELECT * FROM albums ORDER BY release_year ASC;' 
+	?> 
+      
   </body>
 </html>
