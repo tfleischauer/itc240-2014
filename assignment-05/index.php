@@ -2,6 +2,8 @@
 	// connect to database
 	include("passwords.php");
 	$mysql = new mysqli("localhost","tfleis02",$mysql_password,"tfleis02");
+	
+	$months ="";
 ?>
 
 <!doctype html>
@@ -82,15 +84,35 @@
 				?>
                 
                 <?php 
-                $sumQuery = 'SELECT SUM(amount) FROM receipts;';
+                $sumQuery = 'SELECT SUM(amount) AS amount FROM receipts;';
 				$preparedSum = $mysql->prepare($sumQuery);
 		  	 	$preparedSum->execute();
-		  	
+				
+		  		// get the result (an array containing one row)
 		     	$resultSum = $preparedSum->get_result();
+				
 				?>
+                <pre>This is the contents of a call to get_results();
+                <?php
+				print_r($resultSum);
+				?>
+				</pre>
+				
+				
+				<?php
+				
+				// fetch array gets a single row at a time.
+				$wholeRow = $resultSum->fetch_array();
+				?>
+                <pre>This is the contents of a call to fetch_array();
+                <?php
+				print_r($wholeRow);
+				?>
+				</pre>
+				
 				
                 <tr>
-                	<td><b>Total: $</b><?= $resultSum[amount] ?></td>
+                	<td><b>Total: $</b> <?= $wholeRow["amount"] ?></td>
                 </tr>
               
             </table> 
@@ -101,8 +123,8 @@
               <table class-"sorting-table">
                   <tr>
                       <form>
-                          <td>See receipts for the last month.</td>
-                          <td><button>SUBMIT</button></td>
+                          <td>See receipts so far for this month.</td>
+                          <td><button name="monthly">SUBMIT</button></td>
                       </form>
                   </tr>
              </table>
@@ -110,15 +132,49 @@
                 	
             
             <?php
-			 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-             $select = 'SELECT * FROM receipts WHERE DATED BETWEEN now() AND now() - 32;';
-		 	 $prepared = $mysql->prepare($select);
-		  	 $prepared->execute();
+			 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_REQUEST["monthly"])) {
+             // $selectMonth = 'SELECT * FROM receipts WHERE dated>now() - INTERVAL 32 DAYS;';
+			 // simpler
+			 $selectMonth = 'SELECT * FROM receipts WHERE MONTH(dated)=MONTH(now);';
+		 	 $preparedMonth = $mysql->prepare($selectMonth);
+		  	 $preparedMonth->execute();
 		  
-		     $results = $prepared->get_result();
+		     $monthResults = $preparedMonth->get_result();
+			 
+			 // fetch array gets a single row at a time.
+			 $months = $monthResults->fetch_array();
 			 }
 			 ?>
-             
+                <pre>This is the contents of a call to fetch_array() on $months:
+                <?php
+				print_r($months);
+				?>
+				</pre>
+			 
+			 <fieldset class="result-fieldset">
+          		<legend>Purchases This Month</legend>
+            	<table class="result-table">
+                  <tr>
+                      <th>Amount Spent</th>
+                      <th>Item</th>
+                      <th>Vendor</th>
+                      <th>Date</th>
+                  </tr>
+              
+              <?php
+              	foreach ($months AS $month) {
+			  ?>
+                  <tr>
+                      <td>$<?= $month["amount"] ?></td>
+                      <td><?= $month["item"] ?></td>
+                      <td><?= $month["vendor"] ?></td>
+                      <td><?= $month["date"] ?></td>
+                   </tr>
+               <?php
+				}
+				?>
+                </table> 
+                </fieldset>         
           
            </div> <!-- end page-wrapper -->
      </body>
