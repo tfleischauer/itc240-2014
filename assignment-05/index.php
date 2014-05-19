@@ -3,7 +3,7 @@
 	include("passwords.php");
 	$mysql = new mysqli("localhost","tfleis02",$mysql_password,"tfleis02");
 	
-	$months ="";
+	// $months = [ ];
 ?>
 
 <!doctype html>
@@ -71,7 +71,7 @@
               </tr>
               
               <?php
-              	foreach ($results AS $result) {
+              	foreach ($results as $result) {
 			  ?>
               <tr>
                   <td>$<?= $result["amount"] ?></td>
@@ -112,7 +112,8 @@
 				
 				
                 <tr>
-                	<td><b>Total: $</b> <?= $wholeRow["amount"] ?></td>
+                	<td><b>Total: $</b></td>
+                    <td> <?= $wholeRow["amount"] ?></td>
                 </tr>
               
             </table> 
@@ -135,46 +136,51 @@
 			 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_REQUEST["monthly"])) {
              // $selectMonth = 'SELECT * FROM receipts WHERE dated>now() - INTERVAL 32 DAYS;';
 			 // simpler
-			 $selectMonth = 'SELECT * FROM receipts WHERE MONTH(dated)=MONTH(now);';
+			 $selectMonth = 'SELECT * FROM receipts WHERE MONTH(dated) = MONTH(now());';
 		 	 $preparedMonth = $mysql->prepare($selectMonth);
 		  	 $preparedMonth->execute();
-		  
-		     $monthResults = $preparedMonth->get_result();
 			 
-			 // fetch array gets a single row at a time.
-			 $months = $monthResults->fetch_array();
-			 }
+		  	 // get_result() returns an array-like object that contains ALL the rows that resulted from a query
+			 // don't use fetch_aray() for this because we want to several lines of purchases, not just one
+		     $monthResults = $preparedMonth->get_result();
 			 ?>
-                <pre>This is the contents of a call to fetch_array() on $months:
+             
+                <pre>This is the contents of a call to get_results() on $monthResults:
+                
                 <?php
-				print_r($months);
+				print_r($monthResults);
 				?>
 				</pre>
 			 
-			 <fieldset class="result-fieldset">
-          		<legend>Purchases This Month</legend>
-            	<table class="result-table">
-                  <tr>
-                      <th>Amount Spent</th>
-                      <th>Item</th>
-                      <th>Vendor</th>
-                      <th>Date</th>
-                  </tr>
-              
-              <?php
-              	foreach ($months AS $month) {
-			  ?>
-                  <tr>
-                      <td>$<?= $month["amount"] ?></td>
-                      <td><?= $month["item"] ?></td>
-                      <td><?= $month["vendor"] ?></td>
-                      <td><?= $month["date"] ?></td>
-                   </tr>
-               <?php
-				}
-				?>
-                </table> 
-                </fieldset>         
+                 <fieldset class="result-fieldset">
+                    <legend>Purchases This Month</legend>
+                    <table class="result-table">
+                      <tr>
+                          <th>Amount Spent</th>
+                          <th>Item</th>
+                          <th>Vendor</th>
+                          <th>Date</th>
+                      </tr>
+                  
+                  <?php
+                    foreach ($monthResults as $month) {
+                  ?>
+                      <tr>
+                          <td>$<?= $month["amount"] ?></td>
+                          <td><?= $month["item"] ?></td>
+                          <td><?= $month["vendor"] ?></td>
+                          <td><?= $month["date"] ?></td>
+                       </tr>
+                   <?php
+                    } // end foreach loop
+        
+                    ?>
+                    </table> 
+                    </fieldset> 
+                    
+                    <?php
+                    } // end if statement
+                    ?>        
           
            </div> <!-- end page-wrapper -->
      </body>
