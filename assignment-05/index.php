@@ -92,23 +92,26 @@
 		     	$resultSum = $preparedSum->get_result();
 				
 				?>
-                <pre>This is the contents of a call to get_results();
+                <!-- <pre>This is the contents of a call to get_results() on $preparedSum;
+                 produces stats about the rows, and "fields" which are the columns, but doesn't call the columns by name -->
                 <?php
-				print_r($resultSum);
+				// print_r($resultSum);
 				?>
-				</pre>
+				<!-- </pre> -->
 				
 				
 				<?php
-				
 				// fetch array gets a single row at a time.
+				// this gets the single amount row as requested in $sumQuery
 				$wholeRow = $resultSum->fetch_array();
 				?>
-                <pre>This is the contents of a call to fetch_array();
+                
+               <!--  <pre>This is the contents of a call to fetch_array();
+               print_r($wholeRow) produces an array with the summed amount -->
                 <?php
-				print_r($wholeRow);
+				// print_r($wholeRow);
 				?>
-				</pre>
+				<!-- </pre> -->
 				
 				
                 <tr>
@@ -119,6 +122,7 @@
             </table> 
             </fieldset>
             
+            <!--
             <fieldset  class="sorting-fieldset">
             <legend>Sorting</legend>
               <table class-"sorting-table">
@@ -130,13 +134,14 @@
                   </tr>
              </table>
            </fieldset>
+           -->
                 	
             
             <?php
-			 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_REQUEST["monthly"])) {
-             // $selectMonth = 'SELECT * FROM receipts WHERE dated>now() - INTERVAL 32 DAYS;';
+			 // if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_REQUEST["monthly"])) {
+             // $selectMonth = 'SELECT * FROM receipts WHERE MONTH(date) > now() - INTERVAL 32 DAYS;';
 			 // simpler
-			 $selectMonth = 'SELECT * FROM receipts WHERE MONTH(dated) = MONTH(now());';
+			 $selectMonth = 'SELECT * FROM receipts WHERE MONTH(date) = MONTH(now());';
 		 	 $preparedMonth = $mysql->prepare($selectMonth);
 		  	 $preparedMonth->execute();
 			 
@@ -145,12 +150,15 @@
 		     $monthResults = $preparedMonth->get_result();
 			 ?>
              
-                <pre>This is the contents of a call to get_results() on $monthResults:
+             <!-- <pre>This is the contents of a call to get_results() on $monthResults;
+                 produces stats about the rows, and "fields" which are the columns, but doesn't call the columns by name
+             
+                <pre>This is the contents of a call to get_results() on $monthResults:  -->
                 
                 <?php
-				print_r($monthResults);
+				// print_r($monthResults);
 				?>
-				</pre>
+				<!-- </pre> -->
 			 
                  <fieldset class="result-fieldset">
                     <legend>Purchases This Month</legend>
@@ -173,13 +181,28 @@
                        </tr>
                    <?php
                     } // end foreach loop
+	
+                		// $sumQuery = 'SELECT SUM(amount) AS amount FROM receipts;';
+						// $preparedSum = $mysql->prepare($sumQuery);
+		  	 			// $preparedSum->execute();
+		     			// $resultSum = $preparedSum->get_result();
+						// $wholeRow = $resultSum->fetch_array();
         
                     ?>
+                    
+                    	<!-- <tr>
+                			<td><b>Total: $</b></td>
+                    		<td>
+                           
+							 $wholeRow["amount"]  -->
+							
+                            <!-- </td>
+               			</tr>  -->
                     </table> 
                     </fieldset> 
                     
                     <?php
-                    } // end if statement
+                    // } // end if statement
                     ?>        
           
            </div> <!-- end page-wrapper -->
