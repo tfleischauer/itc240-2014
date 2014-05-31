@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<body>
-    	<form action="index.php" method="POST">
+    	<form action="insert.php" method="POST">
         	<textarea name="activity" placeholder="Description of Activity"></textarea>
         	<input name="calories" placeholder="Calories Exerted">
         	<input name="date" placeholder="Date Ex: 2014-05-27">
@@ -9,13 +9,10 @@
         </form>
 <?php
 
-include("password.php");
+include("passwords.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["activity"])) {
-	$defineInsertion = 'INSERT INTO neko (activity, calories, date) VALUES (?,?,?);';
-	$preparedForBindingThenExecution = $mysqlConnection->prepare($defineInsertion);
-	$preparedForBindingThenExecution->bind_param("sis", $_REQUEST["activity"], $_REQUEST["calories"], $_REQUEST["date"]);
-	$preparedForBindingThenExecution->execute();
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["activity"]) && isset($_REQUEST["calories"]) && isset($_REQUEST["date"])) {
+	include("insert.php");
 }
 
 $definedAndPreparedQuery = $mysqlConnection->prepare('SELECT * FROM neko ORDER BY calories DESC;');
