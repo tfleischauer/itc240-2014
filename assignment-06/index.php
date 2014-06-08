@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h1>Neko's Calorie Counter</h1>
+    <h1>Neko&#39;s Calorie Counter</h1>
 
 <?php
 
