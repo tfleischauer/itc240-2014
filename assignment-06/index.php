@@ -1,6 +1,12 @@
 <!doctype html>
 <html>
-	<body>
+
+<head>
+	<title>A6: Cat Calorie Counter</title>
+</head>
+
+<body>
+    <h1>Neko's Calorie Counter</h1>
 
 <?php
 
@@ -39,14 +45,14 @@
         </form>
 <?php
 
-	  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["activity"]) && isset($_REQUEST["calories"]) && isset($_REQUEST["date"]) && isset($_REQUEST["id"])) {
+	  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["activity"]) && isset($_REQUEST["calories"]) && isset($_REQUEST["date"])) {
 		  $id = $_REQUEST["id"];
 		  echo $id;
 		  print_r ($id);
-		  $activity = $_REQUEST["activity"];
 		  $calories = $_REQUEST["calories"];
-		  $date = $_REQUEST["date"];
-		  
+		  echo $calories;
+		  print_r ($calories);
+	
 		  include("insert.php");
 	  }
 
