@@ -46,13 +46,6 @@
 <?php
 
 	  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["activity"]) && isset($_REQUEST["calories"]) && isset($_REQUEST["date"])) {
-		  $id = $_REQUEST["id"];
-		  echo $id;
-		  print_r ($id);
-		  $calories = $_REQUEST["calories"];
-		  echo $calories;
-		  print_r ($calories);
-	
 		  include("insert.php");
 	  }
 
