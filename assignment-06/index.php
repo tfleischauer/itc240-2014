@@ -7,6 +7,7 @@
 
 <body>
     <h1>Neko&#39;s Calorie Counter</h1>
+    <p><i>A log of a cat's activities and calories burned</i></p>
 
 <?php
 
@@ -49,13 +50,13 @@
 		  include("insert.php");
 	  }
 
-$definedAndPreparedQuery = $mysqlConnection->prepare('SELECT * FROM neko ORDER BY calories DESC;'); // no matter what operation you've done via the form, ALWAYS show the list of existing rows
-$definedAndPreparedQuery->execute();
-$returnedResults = $definedAndPreparedQuery->get_result();
+	  $definedAndPreparedQuery = $mysqlConnection->prepare('SELECT * FROM neko ORDER BY calories DESC;'); // no matter what operation you've done via the form, ALWAYS show the list of existing rows
+	  $definedAndPreparedQuery->execute();
+	  $returnedResults = $definedAndPreparedQuery->get_result();
 
 
-foreach ($returnedResults as $row) {
-  ?>	
+	foreach ($returnedResults as $row) {
+?>	
 	  <div>
 		  <?= htmlentities($row["activity"]) ?>
 		  <?= htmlentities($row["calories"]) ?>
@@ -64,7 +65,7 @@ foreach ($returnedResults as $row) {
 		  <a href="?delete=<?= $row["id"] ?>">&#10005;</a> <!-- create a link where the query string includes a "delete=X", where X is the ID of the row in question. That's how we know which database row to delete or update. -->
 	  </div>  
       
-  <?php
+<?php
 }
 ?>
 
@@ -76,10 +77,9 @@ foreach ($returnedResults as $row) {
 ?>
 
 	<div>
-    <hr>
-    	<b>Max Calorie Activity: <?= $sumRowResult["Max_Calories"] ?></b> <br />
-    	<b>Total Calories: <?= $sumRowResult["Total_Calories"] ?></b> 
-        
+    	<hr>
+          <b>Max Calorie Activity: <?= $sumRowResult["Max_Calories"] ?></b> <br />
+          <b>Total Calories: <?= $sumRowResult["Total_Calories"] ?></b> 
     </div>
 
   </body>

@@ -1,6 +1,3 @@
-<!doctype html>
-<html>
-
 <?php
 
 include("passwords.php");
@@ -10,24 +7,11 @@ $calories = $_REQUEST["calories"];
 $date = $_REQUEST["date"];
 $id = $_REQUEST["id"];
 
-echo $id;
-print_r ($id);
-$calories = $_REQUEST["calories"];
-echo $calories;
-print_r ($calories);
+// echo and print_r statements only work on pages that are being POSTED to.
+// echo ($activity);
+// print_r($activity);
 
-?>
-<body>
-  <pre>
-    <?php print_r($calories); ?>
-        <?php echo($calories); ?>
-  
-  </pre>
-</body>
-</html>
-<?php
-
-  if ($id) { // or if (isset($_REQUEST["id"]))
+  if ($id) {
 		  $updateQuery = 'UPDATE neko SET activity=?, calories=?, date=? WHERE id=?';
 		  $update = $mysqlConnection->prepare($updateQuery);
 		  $update->bind_param("sisi", $activity, $calories, $date, $id);
