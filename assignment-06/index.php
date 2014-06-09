@@ -62,7 +62,8 @@ foreach ($returnedResults as $row) {
 		  <?= htmlentities($row["date"]) ?>
 		  <a href="?update=<?= $row["id"] ?>">&#9998;</a> 
 		  <a href="?delete=<?= $row["id"] ?>">&#10005;</a> <!-- create a link where the query string includes a "delete=X", where X is the ID of the row in question. That's how we know which database row to delete or update. -->
-	  </div>   
+	  </div>  
+      
   <?php
 }
 ?>
