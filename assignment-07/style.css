@@ -53,6 +53,11 @@ button .dark-theme {
 	background-color:grey;
 }
 
+button .light-theme {
+	color:#000;
+	background-color:#FFF;
+}
+
 .dark-theme .theme-container {
 	color:#FFF;
 	background-color:grey;

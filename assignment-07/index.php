@@ -1,6 +1,10 @@
 <?php
 	include("passwords.php");
 	
+	$sortValue = "";
+	$themeValue = "";
+	$viewValue = "";
+	
 	// if the browser is storing a key of 'sort' as a cookie, get that value
 	if (isset($_COOKIE["sortKey"])) {
 		$sortValue = $_COOKIE["sortKey"];	
@@ -31,6 +35,7 @@
 		$themeValue = $_REQUEST["themeKey"];
 		setcookie("themeKey", $themeValue, time() + 60 * 10, "/");	
 	}
+	
 ?>
 
 <!doctype html>
@@ -65,6 +70,7 @@
 	
 	// if the value to the $sortBy key is not in $sortingWhiteList 
 	// assign  a default value
+	
 	if (!isset($sortingWhiteList[$sortValue])) {
 		$sortValue = "title";
 	}
@@ -81,21 +87,6 @@
 	$sortQuery->execute();
 	$sorted = $sortQuery->get_result();	
 	
-	// cover view is the same as listing but also includes a description
-	// cover view shows everything and is the default
-	// listing view is the special case (itr jsut has no descripition)
-	if ($viewKey->listing) {
-		$viewQuery = ("SELECT cover_art, title, author FROM books");
-		$prepared = $mysqlConnection->prepare($viewQuery);
-		// no input, no bind
-		$prepared->execute();
-		$viewResult = $prepared->get_result();
-	} else { // same as default view, which is the cover view
-		$sortQuery = $mysqlConnection->prepare("SELECT * FROM books ORDER BY $sortValue ASC");
-		$sortQuery->execute();
-		$sorted = $sortQuery->get_result();		
-	}
-	
 	?>
 
     <table>
@@ -103,18 +94,27 @@
             <th>Cover</th>
             <th><a href="?sortKey=title">Title</a></th>
             <th><a href="?sortKey=author">Author</a></th>
-            <th>Description</th>
+            <?php if ($viewValue == "cover")  { ?>
+            	<th>Description</th>
+            <?php } ?>
+            <th>Check Out</th>
         </tr>
-        
+     
+     
     <?php
         foreach($sorted as $row) {
     ?>
         
-        <tr> <!-- do I need htmlentities for displaying from the database? -->
+        <tr> <!-- htmlentities is needed to protect us against content that is benign to the database
+        	 but dangerous to the browser, like cross-site scripting attacks. -->
             <td><img src="<?= htmlentities($row["cover_art"]) ?>" /></td>
             <td><?= htmlentities($row["title"]) ?></td>
             <td><?= htmlentities($row["author"]) ?></td>
-            <td><?= htmlentities($row["description"]) ?></td>
+            <!-- cover view is the same as listing but also includes a description -->
+            <?php if($viewValue == "cover")  { ?>
+            	<td><?= htmlentities($row["description"]) ?></td>
+            <?php } ?>
+            <td><button>Check Out</button></td>
         </tr>
     
     <?php
