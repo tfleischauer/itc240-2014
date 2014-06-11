@@ -1,0 +1,90 @@
+body {
+	font-family:"Century Gothic", "Trebuchet MS",  Helvetica, Arial, sans-serif;
+}
+
+img {
+	width:150px;
+}
+
+tr,
+td {
+	border:2px solid lightgrey;
+	padding:15px;
+	border-collapse:collapse;	
+}
+
+th {
+	text-align:center;
+	background-color:grey;
+	color:#FFF;	
+	padding:10px;
+	font-size:24px;
+}
+
+table {
+	border-spacing:5px;	
+	text-align:left;
+	border-collapse:collapse;
+	margin:auto;	
+	margin-bottom:20px;
+	margin-top:20px;
+}
+
+a {
+	text-decoration:none;
+	color:#FFF;
+	border-bottom:3px dotted lightgrey;
+	
+}
+
+a:hover {
+	text-decoration:underline;	
+	border-bottom:none;
+}
+
+#buttons {
+	width:500px;
+	text-align:center;
+	margin:auto;	
+}
+
+button .dark-theme {
+	color:#FFF;
+	background-color:grey;
+}
+
+.dark-theme .theme-container {
+	color:#FFF;
+	background-color:grey;
+}
+
+.light-theme .theme-container {
+	color:#000;
+	background-color:#FFF;
+}
+
+.dark-theme a {
+	color:#FFF;
+	background-color:grey;
+	border-bottom:none;
+}
+
+.dark-theme th a {
+	border-bottom:2px dotted white;
+}
+
+.light-theme a {
+	color:#000;
+	border-bottom:none;
+}
+
+.light-theme th a {
+	color:#FFF;
+	border-bottom:none;
+	border-bottom:2px dotted white;
+}
+
+.light-theme th a:hover,
+.dark-theme th a:hover {
+	border-bottom:none;
+}
