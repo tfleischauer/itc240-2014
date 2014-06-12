@@ -5,17 +5,17 @@
 	$themeValue = "";
 	$viewValue = "";
 	
-	// if the browser is storing a key of 'sort' as a cookie, get that value
+	// if the browser is storing a key of 'sortKey' as a cookie, get that value
 	if (isset($_COOKIE["sortKey"])) {
 		$sortValue = $_COOKIE["sortKey"];	
 	}
 	
-	// if the sort is specified in the URL, use that instead
+	// if sortKey is specified in the URL, use that instead
 	if (isset($_REQUEST["sortKey"])) {
 		$sortValue = $_REQUEST["sortKey"];
 		setcookie("sortKey", $sortValue, time() + 60 * 10, "/");	
 	}
-	
+		
 	
 	if (isset($_COOKIE["viewKey"])) {
 		$viewValue = $_COOKIE["viewKey"];	
@@ -40,20 +40,22 @@
 
 <!doctype html>
 <html>
-	<head>
-    	<title>A7: Books</title>
-    	<link rel="stylesheet" href="style.css" type="text/css">
-    </head>
-	<body class="<?= $themeValue ?>-theme">
+  <head>
+      <title>A7: Cookies</title>
+      <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+  
+  <body class="<?= $themeValue ?>-theme">
     <div class="theme-container">
-    
-    <div id="buttons">
-        <a href="?viewKey=cover">Cover View</a> |
-        <a href="?viewKey=listing">Listing View</a> |
-
-		<a href="?themeKey=light">Light Theme</a> |
-        <a href="?themeKey=dark">Dark Theme</a>
-    </div>	
+      <h1>No Eating (Cookies) in the Library</h1>
+      
+      <div id="options">
+          <a href="?viewKey=cover">Cover View</a> |
+          <a href="?viewKey=listing">Listing View</a> |
+  
+          <a href="?themeKey=light">Light Theme</a> |
+          <a href="?themeKey=dark">Dark Theme</a>
+      </div>	
     
 <?php		
 
@@ -76,7 +78,7 @@
 	}
 	
 	if (!isset($sortingWhiteList[$themeValue])) {
-		$themeValue = "light";
+		$themeValue = "dark";
 	}
 	
 	if (!isset($sortingWhiteList[$viewValue])) {
@@ -110,7 +112,7 @@
             <td><img src="<?= htmlentities($row["cover_art"]) ?>" /></td>
             <td><?= htmlentities($row["title"]) ?></td>
             <td><?= htmlentities($row["author"]) ?></td>
-            <!-- cover view is the same as listing but also includes a description -->
+            <!-- cover view is the same as listing view except cover view also includes a description -->
             <?php if($viewValue == "cover")  { ?>
             	<td><?= htmlentities($row["description"]) ?></td>
             <?php } ?>
@@ -121,6 +123,6 @@
         }
         ?>
     </table>   
-    </div> <!-- end theme-container -->	
-    </body>
+  	</div> <!-- end theme-container -->	
+  </body>
 </html>

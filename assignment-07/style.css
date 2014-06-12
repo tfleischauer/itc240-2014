@@ -2,6 +2,10 @@ body {
 	font-family:"Century Gothic", "Trebuchet MS",  Helvetica, Arial, sans-serif;
 }
 
+h1 {
+	text-align:center;	
+}
+
 img {
 	width:150px;
 }
@@ -21,6 +25,11 @@ th {
 	font-size:24px;
 }
 
+th a {
+	color:#FFF;	
+	border-bottom:2px dotted lightgrey;
+}
+
 table {
 	border-spacing:5px;	
 	text-align:left;
@@ -32,9 +41,7 @@ table {
 
 a {
 	text-decoration:none;
-	color:#FFF;
-	border-bottom:3px dotted lightgrey;
-	
+	color:#000;
 }
 
 a:hover {
@@ -42,20 +49,10 @@ a:hover {
 	border-bottom:none;
 }
 
-#buttons {
+#options {
 	width:500px;
 	text-align:center;
 	margin:auto;	
-}
-
-button .dark-theme {
-	color:#FFF;
-	background-color:grey;
-}
-
-button .light-theme {
-	color:#000;
-	background-color:#FFF;
 }
 
 .dark-theme .theme-container {
@@ -86,7 +83,7 @@ button .light-theme {
 .light-theme th a {
 	color:#FFF;
 	border-bottom:none;
-	border-bottom:2px dotted white;
+	border-bottom:2px dotted lightgrey;
 }
 
 .light-theme th a:hover,
