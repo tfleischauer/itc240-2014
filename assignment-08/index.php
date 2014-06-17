@@ -6,6 +6,9 @@
   $mysql = new mysqli("localhost","tfleis02",$mysql_password, "tfleis02");
   
   $paginate_number = "";
+  // $directionKey = "";
+  $directionValue = "";
+  $all_results = "";
   
 ?>
 
@@ -27,34 +30,35 @@
     <a href="?directionKey=backValue">Last Page</a>
     <a href="?directionKey=nextValue">Next Page</a>
     
-    <?php	
-	
-	  // if the form has been submitted
-	  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		 // if the number of results was inputted by the user
-		if (isset($_REQUEST["paginate_amount"])) {
-			$all_results = paginate($_REQUEST["paginate_amount"]);
-		// otherwise show everything
-		} else if (!isset($_REQUEST["paginate_amount"])) {
-			$all_results = allResults();
-		}  
-	  }
-	
-    
-	  if(isset($_REQUEST["directionKey"])) {
-		  $directionValue = ($_REQUEST["directionKey"]);
-	  }
-	  
-	  if ($directionValue == "backValue")  {
-		  echo $directionValue; // // works
-		  paginatePrevious ($paginate_number);
-	  } 
+<?php	
 
-	  if ($directionValue == "nextValue")  {
-		  echo $directionValue; // // works
-		  paginateNext ($paginate_number);
-	  }
-	?>
+  // if the form has been submitted
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	 // if the number of results was inputted by the user
+	if (isset($_REQUEST["paginate_amount"])) {
+		$all_results = paginate($_REQUEST["paginate_amount"]);
+	// otherwise show everything
+	} else if (!isset($_REQUEST["paginate_amount"])) {
+		$all_results = allResults();
+    }  
+
+
+	if(isset($_REQUEST["directionKey"])) {
+		$directionValue = ($_REQUEST["directionKey"]);
+	}
+	
+	if ($directionValue == "backValue")  {
+		echo $directionValue; // // works
+		$all_results = paginatePrevious($_REQUEST["paginate_amount"]);
+	} 
+  
+	if ($directionValue == "nextValue")  {
+		echo $directionValue; // // works
+		$all_results = paginateNext($_REQUEST["paginate_amount"]);
+	}
+  
+  }
+?>
 
 	<table>
 <?php
@@ -71,11 +75,6 @@ foreach ($all_results as $single_row_results) {
 }
 ?>
 	</table> 
-    
-<?php
-
-	// $order_year ='SELECT * FROM albums ORDER BY release_year ASC;'   
-?> 
       
   </body>
 </html>
