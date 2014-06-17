@@ -1,9 +1,9 @@
 <?php
 
 include("passwords.php");
+$pageNumber = 0;
 
 function TalkToDatabase() {
-	// why does this need to be global?
 	global $mysql_password;
 	$mysql = new mysqli("localhost","tfleis02",$mysql_password, "tfleis02");
 	return $mysql;
@@ -27,27 +27,16 @@ function paginate($num_results) {
 }
 
 function paginateNext($num_results) {	
+	global $pageNumber;
+	$pageNumber++;
 	echo $num_results;
+	echo $pageNumber;
 	$mysqlConnection = TalkToDatabase();
-	$query = 'SELECT * FROM albums LIMIT ? OFFSET ?;';
+	$query = 'SELECT * FROM albums LIMIT ? OFFSET ((? - 1) * ?);';
 	$prepared = $mysqlConnection->prepare($query);
-	$prepared->bind_param("ii", $num_results, $num_results);
+	$prepared->bind_param("iii", $num_results, $pageNumber, $num_results);
 	$prepared->execute();
     return $prepared->get_result();
 }
-
-function paginatePrevious($num_results) {
-	echo $num_results;
-	$mysqlConnection = TalkToDatabase();
-	// Does not work in command line:
-	// $query = 'SELECT * FROM albums LIMIT ? OFFSET ? - ?;';
-	// $query = 'SELECT * FROM albums LIMIT ?,?;';
-	$prepared = $mysqlConnection->prepare($query);
-	$prepared->bind_param("ii", $num_results, $num_results);
-	$prepared->execute();
-    return $prepared->get_result();
-}
-
-
 
 ?>

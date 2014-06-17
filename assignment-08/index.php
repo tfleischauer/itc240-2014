@@ -8,7 +8,9 @@
   $paginate_number = "";
   // $directionKey = "";
   $directionValue = "";
-  $all_results = "";
+  $all_results = array(); // PHP 5.4 [ ]
+  // $pageNumber = 0;
+  $paginate_amount = "";
   
 ?>
 
@@ -27,37 +29,41 @@
         <!-- Do I need a clear input button? -->
     </form>
     
-    <a href="?directionKey=backValue">Last Page</a>
+    <!-- <a href="?directionKey=backValue">Last Page</a> -->
     <a href="?directionKey=nextValue">Next Page</a>
     
 <?php	
 
   // if the form has been submitted
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	 // if the number of results was inputted by the user
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	  
+	  $paginate_amount = $_REQUEST["paginate_amount"];
+	  
+	 // if the pagination number was inputted by the user
 	if (isset($_REQUEST["paginate_amount"])) {
 		$all_results = paginate($_REQUEST["paginate_amount"]);
+		echo $paginate_amount;
 	// otherwise show everything
-	} else if (!isset($_REQUEST["paginate_amount"])) {
+	} elseif (!isset($_REQUEST["paginate_amount"])) {
 		$all_results = allResults();
-    }  
-
+    } 
 
 	if(isset($_REQUEST["directionKey"])) {
 		$directionValue = ($_REQUEST["directionKey"]);
 	}
-	
-	if ($directionValue == "backValue")  {
-		echo $directionValue; // // works
-		$all_results = paginatePrevious($_REQUEST["paginate_amount"]);
-	} 
   
 	if ($directionValue == "nextValue")  {
-		echo $directionValue; // // works
-		$all_results = paginateNext($_REQUEST["paginate_amount"]);
+		// $paginate_amount = $_REQUEST["paginate_amount"];
+		echo $directionValue; // no longer echoes
+		// $pageNumber++;
+		echo $pageNumber;
+		$all_results = paginateNext($paginate_amount, $pageNumber);
 	}
+   }
+	
+
   
-  }
+ 
 ?>
 
 	<table>
