@@ -1,7 +1,6 @@
 <?php
 
 include("passwords.php");
-$pageNumber = 0;
 
 function TalkToDatabase() {
 	global $mysql_password;
@@ -27,14 +26,17 @@ function paginate($num_results) {
 }
 
 function paginateNext($num_results) {	
-	global $pageNumber;
+	$pageNumber = 0;
 	$pageNumber++;
-	echo $num_results;
-	echo $pageNumber;
+	echo $num_results . " = num_results. ";
+	echo $pageNumber . " = pageNumber. ";
+	$offsetMath = (($pageNumber - 1) * $num_results);
+	echo $offsetMath . " = offsetMath. "; 
 	$mysqlConnection = TalkToDatabase();
-	$query = 'SELECT * FROM albums LIMIT ? OFFSET ((? - 1) * ?);';
+	// Thamos says: if you had SELECT * FROM table WHERE some_column = ? LIMIT ?, you would $prepared->bind_params("si", $where, $limit). 
+	$query = 'SELECT * FROM albums LIMIT ? OFFSET ?;';
 	$prepared = $mysqlConnection->prepare($query);
-	$prepared->bind_param("iii", $num_results, $pageNumber, $num_results);
+	$prepared->bind_param("ii", $limit, $offset);
 	$prepared->execute();
     return $prepared->get_result();
 }

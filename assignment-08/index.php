@@ -6,11 +6,10 @@
   $mysql = new mysqli("localhost","tfleis02",$mysql_password, "tfleis02");
   
   $paginate_number = "";
-  // $directionKey = "";
   $directionValue = "";
   $all_results = array(); // PHP 5.4 [ ]
   // $pageNumber = 0;
-  $paginate_amount = "";
+  $paginateamount = 0;
   
 ?>
 
@@ -24,8 +23,9 @@
 
     <form action="index.php" method="POST">
     	<label>How many results would you like to see at a time?</label>
-        <input name="paginate_amount" placeholder="Enter Number" value="">
-        <button>Submit</button>
+        <input name="paginateamount" placeholder="Enter Number" value="" />
+        <!--<button>Submit</button>-->
+        <input type="submit">
         <!-- Do I need a clear input button? -->
     </form>
     
@@ -37,32 +37,28 @@
   // if the form has been submitted
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	  
-	  $paginate_amount = $_REQUEST["paginate_amount"];
+	  $paginate_amount = ($_REQUEST["paginateamount"]);
 	  
 	 // if the pagination number was inputted by the user
-	if (isset($_REQUEST["paginate_amount"])) {
-		$all_results = paginate($_REQUEST["paginate_amount"]);
-		echo $paginate_amount;
+	if (isset($_REQUEST["paginateamount"])) {
+		$all_results = paginate($_REQUEST["paginateamount"]);
+		echo $paginateamount;
 	// otherwise show everything
-	} elseif (!isset($_REQUEST["paginate_amount"])) {
+	} else {
 		$all_results = allResults();
     } 
+   }
 
 	if(isset($_REQUEST["directionKey"])) {
 		$directionValue = ($_REQUEST["directionKey"]);
+		echo $directionValue . " in isset REQUEST. ";
 	}
   
 	if ($directionValue == "nextValue")  {
 		// $paginate_amount = $_REQUEST["paginate_amount"];
-		echo $directionValue; // no longer echoes
-		// $pageNumber++;
-		echo $pageNumber;
-		$all_results = paginateNext($paginate_amount, $pageNumber);
-	}
-   }
-	
-
-  
+		echo $directionValue . " is the echoed value in 'if directionValue == nextValue.' ";;
+		$all_results = paginateNext($paginateamount);
+	} 
  
 ?>
 
