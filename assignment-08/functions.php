@@ -25,18 +25,13 @@ function paginate($num_results) {
     return $prepared->get_result();
 }
 
-function paginateNext($num_results) {	
-	$pageNumber = 0;
-	$pageNumber++;
-	echo $num_results . " = num_results. ";
-	echo $pageNumber . " = pageNumber. ";
+function paginateNext($num_results, $pageNumber) {
 	$offsetMath = (($pageNumber - 1) * $num_results);
-	echo $offsetMath . " = offsetMath. "; 
+	// echo $offsetMath . " = offsetMath. "; 
 	$mysqlConnection = TalkToDatabase();
-	// Thamos says: if you had SELECT * FROM table WHERE some_column = ? LIMIT ?, you would $prepared->bind_params("si", $where, $limit). 
 	$query = 'SELECT * FROM albums LIMIT ? OFFSET ?;';
 	$prepared = $mysqlConnection->prepare($query);
-	$prepared->bind_param("ii", $limit, $offset);
+	$prepared->bind_param("ii", $num_results, $offsetMath);
 	$prepared->execute();
     return $prepared->get_result();
 }
