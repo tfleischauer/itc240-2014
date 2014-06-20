@@ -31,8 +31,7 @@ index.php?page=2&num_results=4
 			$all_results = allResults();
 		} 
    }
-  }
-  
+  } 
 ?>
 
 <!doctype html>
@@ -56,8 +55,7 @@ index.php?page=2&num_results=4
     <a href="?page=<?= $page + 1 ?>&num_items=<?= $paginate_amount ?>">Next Page</a> <br>
     <a href="?page=<?= $page - 1 ?>&num_items=<?= $paginate_amount ?>">Previous Page</a> <br>
     
-    <a href="?resetKey=resetValue">Reset</a>
-       
+    <a href="?resetKey=resetValue">Reset</a>       
     
 <?php	
 
