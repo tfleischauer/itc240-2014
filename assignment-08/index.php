@@ -5,11 +5,9 @@
   // paramaters are: server, username, password, database, account name
   $mysql = new mysqli("localhost","tfleis02",$mysql_password, "tfleis02");
   
-  $paginate_number = "";
-  $directionValue = "";
   $all_results = array(); // PHP 5.4 [ ]
   $page = 1;
-  $paginate_amount = 4;
+  $paginate_amount = 0;
   
   /*
 index.php?page=2&num_results=4
@@ -29,9 +27,7 @@ index.php?page=2&num_results=4
 		if ($_REQUEST["num_items"] != "") {
 			$all_results = paginate($paginate_amount);
 			// echo $paginate_amount;
-			
-			 // otherwise show everything
-		} else {
+		} else { // otherwise show everything
 			$all_results = allResults();
 		} 
    }
@@ -59,6 +55,8 @@ index.php?page=2&num_results=4
     
     <a href="?page=<?= $page + 1 ?>&num_items=<?= $paginate_amount ?>">Next Page</a> <br>
     <a href="?page=<?= $page - 1 ?>&num_items=<?= $paginate_amount ?>">Previous Page</a> <br>
+    
+    <a href="?resetKey=resetValue">Reset</a>
        
     
 <?php	
@@ -66,6 +64,10 @@ index.php?page=2&num_results=4
 	if(isset($_REQUEST["page"])) {
 		$all_results = paginateNext($paginate_amount, $page);
 		// print_r($all_results);
+	} 
+	
+	if(isset($_REQUEST["resetKey"])) {
+		 $paginate_amount = 0;
 	} 
  
 ?>
