@@ -1,41 +1,43 @@
 <?php 
-	class Bus {
-		public $speed = 0;
-		public $armed = false;
-		public $exploded = false;		
 		
-		function setSpeed($speed) {
-			$this->speed = $speed;
-			
-			if (($speed < 50) && ($armed = false)){	
-				$this->exploded = false;
-			}
-			
-			elseif (($speed > 50) && ($exploded = false)) {
-				$this->armed = true;
-			}
-			
-			elseif (($speed < 50) && ($armed = true)) {
-				$this->exploded = true;	
-			}	
+class Bus {
+	public $speed = 0;
+	public $armed = false;
+	public $exploded = false;		
+	
+	function setSpeed($speed) {
+		$this->speed = $speed;
+		
+		if (($speed < 50) && ($armed == false)){	
+			$this->exploded = false;
 		}
 		
-		function getSpeed() {
-			$this->speed;
+		elseif (($speed > 50) && ($exploded == false)) {
+			$this->armed = true;
 		}
 		
-		function trigger() {
+		elseif (($speed < 50) && ($armed == true)) {
 			$this->exploded = true;	
 		}	
-		
-		function boolToString($input) {
-			if ($input) {
-				return "true";
-			} else {
-				return "false";
-			}
-		}
 	}
+	
+	function getSpeed() {
+		$this->speed;
+	}
+	
+	function trigger() {
+		$this->exploded = true;
+		return boolToString($this);	
+	}	
+}
+
+function boolToString($input) {
+	  if ($input) {
+		  return "true";
+	  } else {
+		  return "false";
+	  }
+}
 ?>
 
 
