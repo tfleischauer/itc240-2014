@@ -13,6 +13,7 @@ class Bus {
 		
 		elseif (($speed < 50) && ($armed == true)) {
 			$this->exploded = true;	
+			return $this->exploded;
 		}	
 	}
 	
