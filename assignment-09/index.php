@@ -85,7 +85,7 @@ $bus->setSpeed(30);
 
 <?php
 // Test 5: Manually set exploded to false,
-// check value, call trigger
+// check value, call the trigger function
 $bus->exploded = "false";
 ?>
 <h3>Test 5a - Rewrite to a happy ending (no exploding bus.)</h3>

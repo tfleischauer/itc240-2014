@@ -7,12 +7,7 @@ class Bus {
 	
 	function setSpeed($speed) {
 		$this->speed = $speed;
-		
-		if (($speed < 50) && ($armed == false)){	
-			$this->exploded = false;
-		}
-		
-		elseif (($speed > 50) && ($exploded == false)) {
+		if (($speed > 50) && ($exploded == false)) {
 			$this->armed = true;
 		}
 		
