@@ -5,15 +5,16 @@ class Bus {
 	public $armed = false;
 	public $exploded = false;		
 	
-	function setSpeed($speed) {
-		$this->speed = $speed;
-		if (($speed > 50) && ($exploded == false)) {
+	function setSpeed($mph) {
+		
+		$this->speed = $mph;
+		
+		if (($mph > 50) && $this->armed == false) {
 			$this->armed = true;
 		}
 		
-		elseif (($speed < 50) && ($armed == true)) {
+		elseif (($mph < 50) && $this->armed == true) {
 			$this->exploded = true;	
-			return $this->exploded;
 		}	
 	}
 	
@@ -35,6 +36,7 @@ function boolToString($input) {
 	  }
 }
 ?>
+
 
 
 

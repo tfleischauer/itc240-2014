@@ -1,6 +1,4 @@
 <?php
-include("passwords.php");
-$mysqlConnection = new mysqli("localhost", "tfleis02", $mysql_password, "tfleis02");
 include("bus.php");
 ?>
 
@@ -9,6 +7,11 @@ include("bus.php");
 <head>
   <meta charset="UTF-8">
   <title>ITC 240 A9: Classes</title>
+  <style>
+	body {
+	  font-family: "Century Gothic", "Trebuchet MS", Helvetica, Arial, sans-serif;
+	}
+  </style>
 </head>
 
 <body>
@@ -19,7 +22,7 @@ include("bus.php");
 $bus = new Bus();
 ?>
 
-<h3>Test 1 - Bus starts at a speed of 20 mph</h3>
+<h3>Test 1 - Bus starts at a speed of 20 mph.</h3>
 <?php
 $bus->setSpeed(20);
 echo $bus->speed . " mph is the speed"; ?><br><?php
@@ -33,7 +36,7 @@ $explodedString = boolToString($explodedReturn);
 echo $explodedString . " is the exploded status";
 ?>
 
-<h3>Test 2 - Bus speeds up to 55 mph</h3>
+<h3>Test 2 - Bus speeds up to 55 mph.</h3>
 <?php
 $bus->setSpeed(55);
 echo $bus->speed . " mph is the speed"; ?><br><?php
@@ -47,7 +50,7 @@ $explodedString = boolToString($explodedReturn);
 echo $explodedString . " is the exploded status";
 ?>
 
-<h3>Test 3 - Bus speeds up to 80 mph</h3>
+<h3>Test 3 - Bus speeds up to 80 mph.</h3>
 <?php
 
 $bus->setSpeed(80);
@@ -62,7 +65,7 @@ $explodedString = boolToString($explodedReturn);
 echo $explodedString . " is the exploded status";
 ?>
 
-<h3>Test 4 - Bus slows from 80 mph to 30 mph</h3>
+<h3>Test 4 - Bus slows from 80 mph to 30 mph.</h3>
 <?php
 $bus->setSpeed(30);
 echo $bus->speed . " mph is the speed"; ?><br><?php
@@ -81,9 +84,10 @@ echo $explodedString . " is the exploded status";
 $bus->exploded = "false";
 echo $bus->exploded . " is the exploded status"; ?><br>
 
-<h3>Test 5b - Rewrite to an ending where a bitter mad man blows up the bus</h3>
+<h3>Test 5b - Rewrite to an ending where a bitter mad man blows up the bus.</h3>
 <?php 
 $bus->trigger();
+
 $explodedReturn = $bus->exploded;
 $explodedString = boolToString($explodedReturn);
 echo $explodedString . " is the exploded status";
