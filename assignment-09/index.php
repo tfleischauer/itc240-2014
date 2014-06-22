@@ -14,7 +14,7 @@ include("bus.php");
 
   <body>
     <h1>Pop Quiz, Hotshot</h1>
-    <h2><i>Based of the movie 'Speed'</i></h2>
+    <h2><i>Based on the movie 'Speed'</i></h2>
 
 <?php
 $bus = new Bus();
