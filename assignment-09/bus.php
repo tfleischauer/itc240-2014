@@ -30,9 +30,9 @@ class Bus {
 
 function boolToString($input) {
 	  if ($input) {
-		  return "true";
+		  return "True";
 	  } else {
-		  return "false";
+		  return "False";
 	  }
 }
 ?>
